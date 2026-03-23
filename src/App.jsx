@@ -11,8 +11,12 @@ const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', important: '�
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date(2026, 2, 1))
   const [events, setEvents] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    return saved ? JSON.parse(saved) : {}
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      return saved ? JSON.parse(saved) : {}
+    } catch {
+      return {}
+    }
   })
   const [selectedDate, setSelectedDate] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
