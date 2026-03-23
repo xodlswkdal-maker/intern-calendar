@@ -1,7 +1,7 @@
 const DAYS = ['일', '월', '화', '수', '목', '금', '토']
 
-const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', important: '중요', etc: '기타' }
-const EVENT_TYPES = ['day', 'duty', 'off', 'important', 'etc']
+const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', dispatch: '파견', etc: '기타' }
+const EVENT_TYPES = ['day', 'duty', 'off', 'dispatch', 'etc']
 const PERSONS = [
   { value: 'taein', label: '태인' },
   { value: 'sojin', label: '소진' },

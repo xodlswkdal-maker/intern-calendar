@@ -4,7 +4,7 @@ const EVENT_TYPES = [
   { value: 'day', label: '데이' },
   { value: 'duty', label: '당직' },
   { value: 'off', label: '오프' },
-  { value: 'important', label: '중요' },
+  { value: 'dispatch', label: '파견' },
   { value: 'etc', label: '기타' },
 ]
 
