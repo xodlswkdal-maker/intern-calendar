@@ -1,15 +1,22 @@
 import { useState } from 'react'
 
 const EVENT_TYPES = [
+  { value: 'day', label: '데이' },
   { value: 'duty', label: '당직' },
   { value: 'off', label: '오프' },
-  { value: 'important', label: '중요일정' },
+  { value: 'important', label: '중요' },
   { value: 'etc', label: '기타' },
+]
+
+const PERSONS = [
+  { value: 'taein', label: '🙋‍♂️ 태인' },
+  { value: 'sojin', label: '🙋‍♀️ 소진' },
 ]
 
 function EventModal({ selectedDate, editingEvent, onSave, onDelete, onClose }) {
   const [title, setTitle] = useState(editingEvent?.title || '')
-  const [type, setType] = useState(editingEvent?.type || 'duty')
+  const [type, setType] = useState(editingEvent?.type || 'day')
+  const [person, setPerson] = useState(editingEvent?.person || 'taein')
   const [note, setNote] = useState(editingEvent?.note || '')
   const [date, setDate] = useState(editingEvent?.date || selectedDate || '')
 
@@ -20,6 +27,7 @@ function EventModal({ selectedDate, editingEvent, onSave, onDelete, onClose }) {
       id: editingEvent?.id || Date.now().toString(),
       title: title.trim(),
       type,
+      person,
       note: note.trim(),
       date,
     })
@@ -48,6 +56,22 @@ function EventModal({ selectedDate, editingEvent, onSave, onDelete, onClose }) {
         {formattedDate && <p className="modal-date">{formattedDate}</p>}
 
         <form onSubmit={handleSubmit} className="modal-form">
+          <div className="form-group">
+            <label>누구 일정?</label>
+            <div className="person-buttons">
+              {PERSONS.map(p => (
+                <button
+                  key={p.value}
+                  type="button"
+                  className={`person-btn ${p.value} ${person === p.value ? 'active' : ''}`}
+                  onClick={() => setPerson(p.value)}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="form-group">
             <label>구분</label>
             <div className="type-buttons">
@@ -84,7 +108,7 @@ function EventModal({ selectedDate, editingEvent, onSave, onDelete, onClose }) {
               value={note}
               onChange={e => setNote(e.target.value)}
               placeholder="추가 메모 (선택사항)"
-              rows={3}
+              rows={2}
             />
           </div>
 

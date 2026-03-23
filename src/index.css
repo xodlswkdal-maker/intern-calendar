@@ -5,27 +5,45 @@
 }
 
 :root {
-  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --bg: #f8f9fa;
-  --surface: #ffffff;
-  --border: #e2e8f0;
-  --text: #2d3748;
-  --text-muted: #718096;
-  --primary: #4f46e5;
+  --font: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
 
-  /* 이벤트 타입 색상 */
-  --duty-bg: #fee2e2;
-  --duty-text: #991b1b;
-  --duty-border: #fca5a5;
+  /* Base */
+  --bg: #fff5f8;
+  --surface: #ffffff;
+  --border: #fde8f0;
+  --border-strong: #f9a8d4;
+  --text: #4a2040;
+  --text-muted: #a07090;
+  --primary: #ec4899;
+  --primary-dark: #db2777;
+  --primary-light: #fce7f3;
+
+  /* Person colors */
+  --taein: #818cf8;
+  --taein-light: #eef2ff;
+  --sojin: #f472b6;
+  --sojin-light: #fce7f3;
+
+  /* Event type colors */
+  --day-bg: #dbeafe;
+  --day-text: #1e40af;
+  --day-border: #93c5fd;
+
+  --duty-bg: #ffedd5;
+  --duty-text: #c2410c;
+  --duty-border: #fdba74;
+
   --off-bg: #d1fae5;
   --off-text: #065f46;
   --off-border: #6ee7b7;
-  --important-bg: #fef3c7;
-  --important-text: #92400e;
-  --important-border: #fcd34d;
-  --etc-bg: #e0e7ff;
-  --etc-text: #3730a3;
-  --etc-border: #a5b4fc;
+
+  --important-bg: #fef9c3;
+  --important-text: #854d0e;
+  --important-border: #fde047;
+
+  --etc-bg: #ede9fe;
+  --etc-text: #5b21b6;
+  --etc-border: #c4b5fd;
 
   font-family: var(--font);
   color: var(--text);
@@ -50,6 +68,6 @@ button {
   font-family: var(--font);
 }
 
-input, textarea {
+input, textarea, select {
   font-family: var(--font);
 }

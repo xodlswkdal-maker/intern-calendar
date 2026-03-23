@@ -4,6 +4,15 @@ function toDateKey(year, month, day) {
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 }
 
+function isMeetingDay(dayEvents) {
+  const taeinTypes = dayEvents.filter(e => e.person === 'taein').map(e => e.type)
+  const sojinTypes = dayEvents.filter(e => e.person === 'sojin').map(e => e.type)
+  if (taeinTypes.length === 0 || sojinTypes.length === 0) return false
+  const bothOff = taeinTypes.includes('off') && sojinTypes.includes('off')
+  const bothDay = taeinTypes.includes('day') && sojinTypes.includes('day')
+  return bothOff || bothDay
+}
+
 function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, onNextMonth, canGoPrev, canGoNext }) {
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth()
@@ -22,21 +31,11 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
   return (
     <div className="calendar">
       <div className="calendar-nav">
-        <button
-          className="nav-btn"
-          onClick={onPrevMonth}
-          disabled={!canGoPrev}
-          aria-label="이전 달"
-        >
+        <button className="nav-btn" onClick={onPrevMonth} disabled={!canGoPrev} aria-label="이전 달">
           &#8249;
         </button>
         <h2 className="calendar-month">{monthName}</h2>
-        <button
-          className="nav-btn"
-          onClick={onNextMonth}
-          disabled={!canGoNext}
-          aria-label="다음 달"
-        >
+        <button className="nav-btn" onClick={onNextMonth} disabled={!canGoNext} aria-label="다음 달">
           &#8250;
         </button>
       </div>
@@ -60,13 +59,21 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
           const dayOfWeek = (firstDay + day - 1) % 7
           const isSunday = dayOfWeek === 0
           const isSaturday = dayOfWeek === 6
+          const canMeet = isMeetingDay(dayEvents)
 
           return (
             <div
               key={dateKey}
-              className={`day-cell ${isToday ? 'today' : ''} ${isSunday ? 'sunday' : ''} ${isSaturday ? 'saturday' : ''}`}
+              className={[
+                'day-cell',
+                isToday ? 'today' : '',
+                isSunday ? 'sunday' : '',
+                isSaturday ? 'saturday' : '',
+                canMeet ? 'meet-day' : '',
+              ].filter(Boolean).join(' ')}
               onClick={() => onDayClick(dateKey)}
             >
+              {canMeet && <span className="meet-indicator">💕</span>}
               <span className="day-number">{day}</span>
               <div className="day-events">
                 {dayEvents.slice(0, 3).map(event => (
@@ -74,9 +81,14 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
                     key={event.id}
                     className={`event-chip event-${event.type}`}
                     onClick={e => { e.stopPropagation(); onEventClick(event, dateKey) }}
-                    title={event.title}
+                    title={`${event.person === 'taein' ? '태인' : event.person === 'sojin' ? '소진' : ''} ${event.title}`}
                   >
-                    {event.title}
+                    {event.person && (
+                      <span className={`chip-person ${event.person}`}>
+                        {event.person === 'taein' ? '태' : '소'}
+                      </span>
+                    )}
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{event.title}</span>
                   </div>
                 ))}
                 {dayEvents.length > 3 && (
