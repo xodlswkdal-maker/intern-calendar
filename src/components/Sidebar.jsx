@@ -1,18 +1,11 @@
 import InternProgress from './InternProgress'
-import InternPixelArt from './InternPixelArt'
 
-function Sidebar({ events, currentDate }) {
+function Sidebar() {
   return (
     <aside className="sidebar">
       <InternProgress />
-      <div>
-        <div className="sidebar-section-title"><span>🏥</span> 한양대학교병원</div>
-        <div className="pixel-scene-wrap">
-          <InternPixelArt />
-        </div>
-      </div>
+      <div style={{padding:'10px',color:'#666'}}>픽셀아트 비활성화됨</div>
     </aside>
   )
 }
-
 export default Sidebar
