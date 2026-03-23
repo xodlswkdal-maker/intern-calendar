@@ -9,7 +9,7 @@ const STORAGE_KEY = 'intern-calendar-events'
 const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', important: '중요', etc: '기타' }
 
 function App() {
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 2, 1))
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 2, 1))
   const [events, setEvents] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
     return saved ? JSON.parse(saved) : {}
@@ -19,7 +19,7 @@ function App() {
   const [editingEvent, setEditingEvent] = useState(null)
   const [quickMode, setQuickMode] = useState({ active: false, person: 'taein', type: 'day', title: '' })
 
-  const MIN_DATE = new Date(2025, 2, 1)
+  const MIN_DATE = new Date(2026, 2, 1)
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(events))
@@ -102,8 +102,8 @@ function App() {
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
   }
 
-  const canGoPrev = !(currentDate.getFullYear() === 2025 && currentDate.getMonth() === 2)
-  const canGoNext = !(currentDate.getFullYear() === 2026 && currentDate.getMonth() === 1)
+  const canGoPrev = !(currentDate.getFullYear() === 2026 && currentDate.getMonth() === 2)
+  const canGoNext = !(currentDate.getFullYear() === 2027 && currentDate.getMonth() === 1)
 
   return (
     <div className="app">

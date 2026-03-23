@@ -1,3 +1,5 @@
+import InternProgress from './InternProgress'
+
 const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', important: '중요', etc: '기타' }
 const TYPE_KEYS = ['day', 'duty', 'off', 'important', 'etc']
 
@@ -40,16 +42,23 @@ function Sidebar({ events, currentDate, onEventClick }) {
 
   return (
     <aside className="sidebar">
+      {/* 인턴 성장 현황 */}
+      <InternProgress />
+
       {/* 만나는날 카드 */}
       <div className="meet-card">
-        <div className="meet-card-emoji">💕</div>
-        <div className="meet-card-count">{meetCount}</div>
-        <div className="meet-card-label">이번달 만나는날</div>
+        <div className="meet-card-icon">✦</div>
+        <div className="meet-card-text">
+          <div className="meet-card-count">{meetCount}</div>
+          <div className="meet-card-label">이번달 만나는날</div>
+        </div>
       </div>
 
       {/* 태인/소진 통계 */}
       <div>
-        <div className="sidebar-section-title">🐾 이번달 현황</div>
+        <div className="sidebar-section-title">
+          <span>📋</span> 이번달 현황
+        </div>
         <div className="person-stats">
           {[
             { key: 'taein', label: '태인', counts: taeinCounts },
@@ -77,9 +86,11 @@ function Sidebar({ events, currentDate, onEventClick }) {
 
       {/* 이번달 일정 목록 */}
       <div>
-        <div className="sidebar-section-title">📅 이번달 일정</div>
+        <div className="sidebar-section-title">
+          <span>📅</span> 이번달 일정
+        </div>
         {monthEvents.length === 0 ? (
-          <p className="no-events">등록된 일정이 없어요 🐱</p>
+          <p className="no-events">등록된 일정이 없어요</p>
         ) : (
           <ul className="event-list">
             {monthEvents.map(ev => (

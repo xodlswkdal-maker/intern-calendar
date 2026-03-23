@@ -7,43 +7,51 @@
 :root {
   --font: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
 
-  /* Base */
-  --bg: #fff5f8;
+  /* Base — hospital navy */
+  --bg: #eef2f7;
   --surface: #ffffff;
-  --border: #fde8f0;
-  --border-strong: #f9a8d4;
-  --text: #4a2040;
-  --text-muted: #a07090;
-  --primary: #ec4899;
-  --primary-dark: #db2777;
-  --primary-light: #fce7f3;
+  --border: #dde4ef;
+  --border-strong: #b6c2d9;
+  --text: #0d1829;
+  --text-muted: #5b6b8a;
+
+  --primary: #1d4ed8;
+  --primary-dark: #1e3a8a;
+  --primary-light: #eff6ff;
 
   /* Person colors */
-  --taein: #818cf8;
-  --taein-light: #eef2ff;
-  --sojin: #f472b6;
-  --sojin-light: #fce7f3;
+  --taein: #2563eb;
+  --taein-light: #eff6ff;
+  --taein-dark: #1e40af;
+
+  --sojin: #0891b2;
+  --sojin-light: #ecfeff;
+  --sojin-dark: #0e7490;
+
+  /* Meet day */
+  --meet: #f59e0b;
+  --meet-light: #fffbeb;
 
   /* Event type colors */
   --day-bg: #dbeafe;
   --day-text: #1e40af;
   --day-border: #93c5fd;
 
-  --duty-bg: #ffedd5;
-  --duty-text: #c2410c;
-  --duty-border: #fdba74;
+  --duty-bg: #e0e7ff;
+  --duty-text: #3730a3;
+  --duty-border: #a5b4fc;
 
-  --off-bg: #d1fae5;
-  --off-text: #065f46;
-  --off-border: #6ee7b7;
+  --off-bg: #dcfce7;
+  --off-text: #166534;
+  --off-border: #86efac;
 
-  --important-bg: #fef9c3;
-  --important-text: #854d0e;
-  --important-border: #fde047;
+  --important-bg: #fee2e2;
+  --important-text: #991b1b;
+  --important-border: #fca5a5;
 
-  --etc-bg: #ede9fe;
-  --etc-text: #5b21b6;
-  --etc-border: #c4b5fd;
+  --etc-bg: #f1f5f9;
+  --etc-text: #475569;
+  --etc-border: #cbd5e1;
 
   font-family: var(--font);
   color: var(--text);
