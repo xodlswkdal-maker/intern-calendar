@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // ── Scene constants ───────────────────────────────────────────────────────────
 const S = 2            // pixel scale
@@ -73,7 +73,7 @@ const SLT = '#8a9fb4'  // slab top highlight
 const DOF = '#a4b8cc'  // door face
 const DOD = '#8ca0b8'  // door dark
 const STR = '#8090a0'  // stair step
-const STS = '#6070808' // stair shadow (will be #607080)
+const STS = '#607080' // stair shadow
 const WND = '#b8d4f0'  // window glass
 const WNF = '#8ab0d0'  // window frame
 
@@ -260,7 +260,7 @@ function Building() {
         ...[9, 12, 15, 18].map((yy, i) => <line key={`cl${i}`} x1={COR_L + 82} y1={ceilY + yy} x2={COR_L + 88} y2={ceilY + yy} stroke="#bbb" strokeWidth="0.6" />)
       )
     }
-    floors.push(...deco.map((el, i) => ({ ...el, key: `deco-${n}-${i}` })))
+    floors.push(<g key={`deco-${n}`}>{deco}</g>)
   }
 
   // Ground
