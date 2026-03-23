@@ -311,21 +311,17 @@
   line-height: 0;
 }
 
-/* Corridor walk animations */
-.taein-corridor {
-  animation: walk-right 2.8s linear infinite;
-}
-.sojin-corridor {
-  animation: walk-left 3.6s linear infinite 1.4s;
-}
-
-@keyframes walk-right {
-  from { transform: translateX(-36px); }
-  to   { transform: translateX(356px); }
-}
-@keyframes walk-left {
-  from { transform: translateX(356px); }
-  to   { transform: translateX(-36px); }
+/* Building section title */
+.pixel-scene-section-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* XP particle */

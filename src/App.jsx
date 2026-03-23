@@ -6,7 +6,7 @@ import Header from './components/Header'
 import './App.css'
 
 const STORAGE_KEY = 'intern-calendar-events'
-const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', important: '중요', etc: '기타' }
+const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', dispatch: '파견', important: '중요', etc: '기타' }
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date(2026, 2, 1))
