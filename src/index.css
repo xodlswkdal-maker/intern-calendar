@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #2d3748;
+  --text-muted: #718096;
+  --primary: #4f46e5;
+
+  /* 이벤트 타입 색상 */
+  --duty-bg: #fee2e2;
+  --duty-text: #991b1b;
+  --duty-border: #fca5a5;
+  --off-bg: #d1fae5;
+  --off-text: #065f46;
+  --off-border: #6ee7b7;
+  --important-bg: #fef3c7;
+  --important-text: #92400e;
+  --important-border: #fcd34d;
+  --etc-bg: #e0e7ff;
+  --etc-text: #3730a3;
+  --etc-border: #a5b4fc;
+
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font);
+}
+
+input, textarea {
+  font-family: var(--font);
+}

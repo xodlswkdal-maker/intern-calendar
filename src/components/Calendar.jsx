@@ -1,0 +1,94 @@
+const DAYS = ['일', '월', '화', '수', '목', '금', '토']
+
+function toDateKey(year, month, day) {
+  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+}
+
+function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, onNextMonth, canGoPrev, canGoNext }) {
+  const year = currentDate.getFullYear()
+  const month = currentDate.getMonth()
+
+  const firstDay = new Date(year, month, 1).getDay()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const today = new Date()
+
+  const cells = []
+  for (let i = 0; i < firstDay; i++) cells.push(null)
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d)
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  const monthName = `${year}년 ${month + 1}월`
+
+  return (
+    <div className="calendar">
+      <div className="calendar-nav">
+        <button
+          className="nav-btn"
+          onClick={onPrevMonth}
+          disabled={!canGoPrev}
+          aria-label="이전 달"
+        >
+          &#8249;
+        </button>
+        <h2 className="calendar-month">{monthName}</h2>
+        <button
+          className="nav-btn"
+          onClick={onNextMonth}
+          disabled={!canGoNext}
+          aria-label="다음 달"
+        >
+          &#8250;
+        </button>
+      </div>
+
+      <div className="calendar-grid">
+        {DAYS.map((d, i) => (
+          <div key={d} className={`day-header ${i === 0 ? 'sunday' : i === 6 ? 'saturday' : ''}`}>
+            {d}
+          </div>
+        ))}
+
+        {cells.map((day, idx) => {
+          if (!day) return <div key={`empty-${idx}`} className="day-cell empty" />
+
+          const dateKey = toDateKey(year, month, day)
+          const dayEvents = events[dateKey] || []
+          const isToday =
+            today.getFullYear() === year &&
+            today.getMonth() === month &&
+            today.getDate() === day
+          const dayOfWeek = (firstDay + day - 1) % 7
+          const isSunday = dayOfWeek === 0
+          const isSaturday = dayOfWeek === 6
+
+          return (
+            <div
+              key={dateKey}
+              className={`day-cell ${isToday ? 'today' : ''} ${isSunday ? 'sunday' : ''} ${isSaturday ? 'saturday' : ''}`}
+              onClick={() => onDayClick(dateKey)}
+            >
+              <span className="day-number">{day}</span>
+              <div className="day-events">
+                {dayEvents.slice(0, 3).map(event => (
+                  <div
+                    key={event.id}
+                    className={`event-chip event-${event.type}`}
+                    onClick={e => { e.stopPropagation(); onEventClick(event, dateKey) }}
+                    title={event.title}
+                  >
+                    {event.title}
+                  </div>
+                ))}
+                {dayEvents.length > 3 && (
+                  <div className="event-more">+{dayEvents.length - 3}개</div>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default Calendar
