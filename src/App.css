@@ -297,39 +297,48 @@
   letter-spacing: 0.02em;
 }
 
-/* ===== Meeting count card ===== */
-.meet-card {
-  background: linear-gradient(135deg, var(--meet-light), #fef3c7);
-  border: 2px solid #fcd34d;
-  border-radius: 12px;
-  padding: 12px 14px;
+/* ===== Overlap row ===== */
+.overlap-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  background: var(--meet-light);
+  border: 1.5px solid #fcd34d;
+  border-radius: 8px;
+  padding: 7px 10px;
 }
 
-.meet-card-icon {
-  font-size: 24px;
-  line-height: 1;
+.overlap-icon {
+  font-size: 14px;
+  color: #d97706;
   flex-shrink: 0;
+  font-style: normal;
 }
 
-.meet-card-text {
-  flex: 1;
+.overlap-text {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
 }
 
-.meet-card-count {
-  font-size: 22px;
+.overlap-count {
+  font-size: 18px;
   font-weight: 800;
   color: #92400e;
   line-height: 1;
 }
 
-.meet-card-label {
-  font-size: 11px;
+.overlap-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.overlap-sub {
+  margin-left: auto;
+  font-size: 10px;
   color: #a16207;
   font-weight: 600;
-  margin-top: 2px;
 }
 
 /* Person stats */

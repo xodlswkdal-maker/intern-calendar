@@ -1,18 +1,26 @@
-// Intern period definitions
-const INTERNS = [
-  {
-    key: 'taein',
-    name: '태인',
-    start: new Date(2026, 2, 1),   // 2026-03-01
-    end:   new Date(2027, 1, 28),  // 2027-02-28
+const INTERN_TAEIN = {
+  key: 'taein',
+  name: '태인',
+  role: '인턴',
+  start: new Date(2026, 2, 1),   // 2026-03-01
+  end:   new Date(2027, 1, 28),  // 2027-02-28
+  next: null,
+}
+
+const INTERN_SOJIN = {
+  key: 'sojin',
+  name: '소진',
+  role: '인턴',
+  start: new Date(2025, 8, 1),   // 2025-09-01
+  end:   new Date(2026, 7, 30),  // 2026-08-30
+  next: {
+    role: '영상의학과 레지던트 1년차',
+    start: new Date(2026, 8, 1), // 2026-09-01
+    avatar: '🔭',
   },
-  {
-    key: 'sojin',
-    name: '소진',
-    start: new Date(2025, 8, 1),   // 2025-09-01
-    end:   new Date(2026, 7, 30),  // 2026-08-30
-  },
-]
+}
+
+const INTERNS = [INTERN_TAEIN, INTERN_SOJIN]
 
 const LEVELS = [
   { minPct: 0,  maxPct: 20,  lv: 1, avatar: '🩺', stage: '갓 입은 가운' },
@@ -38,47 +46,69 @@ function InternProgressCard({ intern }) {
   const remaining = Math.max(0, totalDays - elapsedDays)
   const lv = getLevel(pct)
   const isFinished = today > intern.end
+  const isInNext = intern.next && today >= intern.next.start
 
   return (
     <div className="intern-progress-card">
       <div className={`intern-card-header ${intern.key}`}>
-        <span className="intern-avatar">{isFinished ? '🎉' : lv.avatar}</span>
+        <span className="intern-avatar">
+          {isInNext ? intern.next.avatar : isFinished ? '🎉' : lv.avatar}
+        </span>
         <div className="intern-info">
           <div className="intern-name-row">
             <span className="intern-name">{intern.name}</span>
             <span className={`intern-level-badge ${intern.key}`}>
-              {isFinished ? 'DONE' : `LV.${lv.lv}`}
+              {isInNext ? 'R1' : isFinished ? 'DONE' : `LV.${lv.lv}`}
             </span>
           </div>
           <div className="intern-stage">
-            {isFinished ? '인턴 수료 완료 🎊' : lv.stage}
+            {isInNext
+              ? intern.next.role
+              : isFinished
+              ? '인턴 수료 완료 🎊'
+              : lv.stage}
           </div>
         </div>
       </div>
       <div className="intern-card-body">
         <div className="intern-xp-label">
-          <span className="intern-xp-title">INTERNSHIP XP</span>
-          <span className="intern-xp-pct">{pct}%</span>
+          <span className="intern-xp-title">
+            {isInNext ? 'RESIDENT XP' : 'INTERN XP'}
+          </span>
+          <span className="intern-xp-pct">{isInNext ? '진행중' : `${pct}%`}</span>
         </div>
         <div className="intern-xp-bar-track">
           <div
             className={`intern-xp-bar-fill ${intern.key}`}
-            style={{ width: `${pct}%` }}
+            style={{ width: isInNext ? '100%' : `${pct}%` }}
           />
         </div>
-        <div className="intern-days-row">
-          <span>
-            <span className="highlight">D+{elapsedDays}</span>
-          </span>
-          <span>
-            {isFinished
-              ? <span style={{ color: 'var(--sojin)' }}>수료!</span>
-              : <><span className="highlight">{remaining}일</span> 남음</>
-            }
-          </span>
-        </div>
+        {isInNext ? (
+          <div className="intern-days-row">
+            <span>
+              인턴 수료 <span className="highlight">✓</span>
+            </span>
+            <span>
+              레지던트 <span className="highlight">
+                D+{Math.round((today - intern.next.start) / 86400000)}
+              </span>
+            </span>
+          </div>
+        ) : (
+          <div className="intern-days-row">
+            <span><span className="highlight">D+{elapsedDays}</span></span>
+            <span>
+              {isFinished
+                ? <span style={{ color: `var(--${intern.key})` }}>수료!</span>
+                : <><span className="highlight">{remaining}일</span> 남음</>
+              }
+            </span>
+          </div>
+        )}
         <div className="intern-date-range">
-          {formatDate(intern.start)} → {formatDate(intern.end)}
+          {isInNext
+            ? `${formatDate(intern.next.start)} ~`
+            : `${formatDate(intern.start)} → ${formatDate(intern.end)}`}
         </div>
       </div>
     </div>
@@ -89,7 +119,7 @@ function InternProgress() {
   return (
     <div>
       <div className="sidebar-section-title">
-        <span>⚕️</span> 인턴 성장 현황
+        <span>⚕️</span> 성장 현황
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {INTERNS.map(intern => (

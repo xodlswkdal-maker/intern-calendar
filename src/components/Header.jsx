@@ -20,7 +20,7 @@ function Header() {
         <span className="legend-item legend-off">오프</span>
         <span className="legend-item legend-important">중요</span>
         <span className="legend-item legend-etc">기타</span>
-        <span className="legend-item legend-meet">✦ 만나는날</span>
+        <span className="legend-item legend-meet">✦ 겹치는날</span>
       </div>
     </header>
   )

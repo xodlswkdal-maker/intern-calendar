@@ -137,7 +137,7 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
               ].filter(Boolean).join(' ')}
               onClick={() => onDayClick(dateKey)}
             >
-              {canMeet && <span className="meet-indicator">💕</span>}
+              {canMeet && <span className="meet-indicator">✦</span>}
               <span className="day-number">{day}</span>
               <div className="day-events">
                 {dayEvents.slice(0, 3).map(event => (
