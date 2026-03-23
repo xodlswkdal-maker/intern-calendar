@@ -668,6 +668,152 @@
 
 .btn-save:hover { background: var(--primary-dark); }
 
+/* ===== Quick Input ===== */
+.quick-toggle-btn {
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--primary);
+  transition: all 0.15s;
+}
+
+.quick-toggle-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.quick-toggle-btn:not(.active):hover {
+  background: var(--primary-light);
+}
+
+.quick-bar {
+  background: linear-gradient(135deg, #fdf2f8, #f5f3ff);
+  border-bottom: 2px solid var(--border-strong);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-bar-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: center;
+}
+
+.quick-bar-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quick-group {
+  display: flex;
+  gap: 5px;
+}
+
+.quick-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-strong);
+  flex-shrink: 0;
+}
+
+.quick-person-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.quick-person-btn.taein.active {
+  background: var(--taein-light);
+  color: #3730a3;
+  border-color: var(--taein);
+}
+
+.quick-person-btn.sojin.active {
+  background: var(--sojin-light);
+  color: var(--primary-dark);
+  border-color: var(--sojin);
+}
+
+.quick-person-btn:not(.active):hover { background: var(--border); }
+
+.quick-type-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  background: var(--surface);
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.quick-type-btn.type-day.active { background: var(--day-bg); color: var(--day-text); border-color: var(--day-border); }
+.quick-type-btn.type-duty.active { background: var(--duty-bg); color: var(--duty-text); border-color: var(--duty-border); }
+.quick-type-btn.type-off.active { background: var(--off-bg); color: var(--off-text); border-color: var(--off-border); }
+.quick-type-btn.type-important.active { background: var(--important-bg); color: var(--important-text); border-color: var(--important-border); }
+.quick-type-btn.type-etc.active { background: var(--etc-bg); color: var(--etc-text); border-color: var(--etc-border); }
+.quick-type-btn:not(.active):hover { background: var(--border); }
+
+.quick-title-input {
+  flex: 1;
+  min-width: 80px;
+  max-width: 160px;
+  padding: 6px 10px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface);
+  outline: none;
+}
+
+.quick-title-input:focus { border-color: var(--primary); }
+
+.quick-done-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  background: var(--primary);
+  color: white;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.quick-done-btn:hover { background: var(--primary-dark); }
+
+/* Quick mode calendar grid */
+.calendar-grid.quick-mode .day-cell:not(.empty) {
+  cursor: crosshair;
+}
+
+.day-cell.quick-selected {
+  background: #fff0f7;
+  box-shadow: inset 0 0 0 2px var(--border-strong);
+}
+
+.day-cell.quick-selected:hover {
+  background: #fce7f3;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .app-body { flex-direction: column; }
