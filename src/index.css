@@ -53,6 +53,10 @@
   --etc-text: #475569;
   --etc-border: #cbd5e1;
 
+  --todo-bg: #f5f3ff;
+  --todo-text: #6d28d9;
+  --todo-border: #c4b5fd;
+
   font-family: var(--font);
   color: var(--text);
   background: var(--bg);

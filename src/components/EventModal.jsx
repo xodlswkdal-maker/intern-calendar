@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
 const EVENT_TYPES = [
-  { value: 'day', label: '데이' },
-  { value: 'duty', label: '당직' },
-  { value: 'off', label: '오프' },
-  { value: 'dispatch', label: '파견' },
-  { value: 'etc', label: '기타' },
+  { value: 'day',      label: '☀️ 데이' },
+  { value: 'duty',     label: '🌙 당직' },
+  { value: 'off',      label: '🏖️ 오프' },
+  { value: 'dispatch', label: '🚗 파견' },
+  { value: 'todo',     label: '☑️ 할일' },
+  { value: 'etc',      label: '📌 기타' },
 ]
 
 const PERSONS = [
@@ -95,7 +96,7 @@ function EventModal({ selectedDate, editingEvent, onSave, onDelete, onClose }) {
               type="text"
               value={title}
               onChange={e => setTitle(e.target.value)}
-              placeholder="일정 제목 입력"
+              placeholder={type === 'todo' ? '해야 할 일 입력' : '일정 제목 입력'}
               autoFocus
               required
             />

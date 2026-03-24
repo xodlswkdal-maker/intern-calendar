@@ -15,11 +15,12 @@ function Header() {
         </div>
       </div>
       <div className="header-legend">
-        <span className="legend-item legend-day">데이</span>
-        <span className="legend-item legend-duty">당직</span>
-        <span className="legend-item legend-off">오프</span>
-        <span className="legend-item legend-dispatch">파견</span>
-        <span className="legend-item legend-etc">기타</span>
+        <span className="legend-item legend-day">☀️ 데이</span>
+        <span className="legend-item legend-duty">🌙 당직</span>
+        <span className="legend-item legend-off">🏖️ 오프</span>
+        <span className="legend-item legend-dispatch">🚗 파견</span>
+        <span className="legend-item legend-todo">☑️ 할일</span>
+        <span className="legend-item legend-etc">📌 기타</span>
         <span className="legend-item legend-meet">✦ 겹치는날</span>
       </div>
     </header>
