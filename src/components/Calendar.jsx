@@ -1,7 +1,9 @@
 const DAYS = ['일', '월', '화', '수', '목', '금', '토']
 
-const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', dispatch: '파견', etc: '기타' }
-const EVENT_TYPES = ['day', 'duty', 'off', 'dispatch', 'etc']
+const TYPE_LABEL = { day: '데이', duty: '당직', off: '오프', dispatch: '파견', todo: '할일', etc: '기타' }
+const TYPE_ICON  = { day: '☀️', duty: '🌙', off: '🏖️', dispatch: '🚗', todo: '☑️', etc: '📌' }
+const EVENT_TYPES = ['day', 'duty', 'off', 'dispatch', 'todo', 'etc']
+
 const PERSONS = [
   { value: 'taein', label: '태인' },
   { value: 'sojin', label: '소진' },
@@ -34,6 +36,16 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
 
   const monthName = `${year}년 ${month + 1}월`
 
+  // month totals for stat bar
+  const monthTotals = { day: 0, duty: 0, off: 0, dispatch: 0, todo: 0, etc: 0 }
+  Object.entries(events).forEach(([key, dayEvs]) => {
+    const [y, m] = key.split('-').map(Number)
+    if (y === year && m === month + 1) {
+      dayEvs.forEach(e => { if (monthTotals[e.type] !== undefined) monthTotals[e.type]++ })
+    }
+  })
+  const hasMonthEvents = Object.values(monthTotals).some(v => v > 0)
+
   const toggleQuick = () => {
     onQuickModeChange(prev => ({ ...prev, active: !prev.active }))
   }
@@ -44,7 +56,18 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
         <button className="nav-btn" onClick={onPrevMonth} disabled={!canGoPrev} aria-label="이전 달">
           &#8249;
         </button>
-        <h2 className="calendar-month">{monthName}</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+          <h2 className="calendar-month">{monthName}</h2>
+          {hasMonthEvents && (
+            <div className="calendar-month-stats">
+              {EVENT_TYPES.filter(t => monthTotals[t] > 0).map(t => (
+                <span key={t} className={`month-mini-chip chip-${t}`}>
+                  {TYPE_ICON[t]} {monthTotals[t]}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <button
             className={`quick-toggle-btn ${quickMode.active ? 'active' : ''}`}
@@ -83,7 +106,7 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
                   className={`quick-type-btn type-${t} ${quickMode.type === t ? 'active' : ''}`}
                   onClick={() => onQuickModeChange(prev => ({ ...prev, type: t }))}
                 >
-                  {TYPE_LABEL[t]}
+                  {TYPE_ICON[t]} {TYPE_LABEL[t]}
                 </button>
               ))}
             </div>
@@ -124,6 +147,11 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
           const hasQuickEvent = quickMode.active &&
             dayEvents.some(e => e.person === quickMode.person && e.type === quickMode.type)
 
+          // todos separate, shown first; rest sorted by person
+          const todos = dayEvents.filter(e => e.type === 'todo')
+          const shifts = dayEvents.filter(e => e.type !== 'todo')
+          const sorted = [...todos, ...shifts]
+
           return (
             <div
               key={dateKey}
@@ -140,23 +168,24 @@ function Calendar({ currentDate, events, onDayClick, onEventClick, onPrevMonth, 
               {canMeet && <span className="meet-indicator">✦</span>}
               <span className="day-number">{day}</span>
               <div className="day-events">
-                {dayEvents.slice(0, 3).map(event => (
+                {sorted.slice(0, 4).map(event => (
                   <div
                     key={event.id}
                     className={`event-chip event-${event.type}`}
                     onClick={e => { e.stopPropagation(); onEventClick(event, dateKey) }}
-                    title={`${event.person === 'taein' ? '태인' : event.person === 'sojin' ? '소진' : ''} ${event.title}`}
+                    title={`${event.person === 'taein' ? '태인' : '소진'} ${event.title}`}
                   >
+                    <span className="chip-type-icon">{TYPE_ICON[event.type]}</span>
                     {event.person && (
                       <span className={`chip-person ${event.person}`}>
                         {event.person === 'taein' ? '태' : '소'}
                       </span>
                     )}
-                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{event.title}</span>
+                    <span className="chip-title">{event.title}</span>
                   </div>
                 ))}
-                {dayEvents.length > 3 && (
-                  <div className="event-more">+{dayEvents.length - 3}개</div>
+                {dayEvents.length > 4 && (
+                  <div className="event-more">+{dayEvents.length - 4}개 더</div>
                 )}
               </div>
             </div>
