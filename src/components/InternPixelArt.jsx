@@ -187,7 +187,6 @@ export default function InternPixelArt() {
     if (sg) sg.innerHTML = SOJIN_RECTS.replace('<g id="ss">', '').replace('</g>', '')
 
     const t0 = performance.now()
-    let frame = 0, lastFlip = 0
     let animId
 
     function tick(now) {
