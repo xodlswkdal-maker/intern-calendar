@@ -19,7 +19,7 @@ function EventModal({ selectedDate, editingEvent, onSave, onDelete, onClose }) {
   const [type, setType] = useState(editingEvent?.type || 'day')
   const [person, setPerson] = useState(editingEvent?.person || 'taein')
   const [note, setNote] = useState(editingEvent?.note || '')
-  const [date, setDate] = useState(editingEvent?.date || selectedDate || '')
+  const [date] = useState(editingEvent?.date || selectedDate || '')
 
   const handleSubmit = (e) => {
     e.preventDefault()
