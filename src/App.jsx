@@ -3,6 +3,7 @@ import Calendar from './components/Calendar'
 import EventModal from './components/EventModal'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
+import ClinicSchedule from './components/ClinicSchedule'
 import './App.css'
 
 const STORAGE_KEY = 'intern-calendar-events'
@@ -22,6 +23,7 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingEvent, setEditingEvent] = useState(null)
   const [quickMode, setQuickMode] = useState({ active: false, person: 'taein', type: 'day', title: '' })
+  const [view, setView] = useState('calendar')
 
   const MIN_DATE = new Date(2026, 2, 1)
 
@@ -111,25 +113,33 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
-      <div className="app-body">
-        <Sidebar events={events} currentDate={currentDate} onEventClick={handleEventClick} />
-        <main className="main-content">
-          <Calendar
-            currentDate={currentDate}
-            events={events}
-            onDayClick={handleDayClick}
-            onEventClick={handleEventClick}
-            onPrevMonth={handlePrevMonth}
-            onNextMonth={handleNextMonth}
-            canGoPrev={canGoPrev}
-            canGoNext={canGoNext}
-            quickMode={quickMode}
-            onQuickModeChange={setQuickMode}
-          />
-        </main>
-      </div>
-      {modalOpen && (
+      <Header view={view} onViewChange={setView} />
+      {view === 'calendar' ? (
+        <div className="app-body">
+          <Sidebar events={events} currentDate={currentDate} onEventClick={handleEventClick} />
+          <main className="main-content">
+            <Calendar
+              currentDate={currentDate}
+              events={events}
+              onDayClick={handleDayClick}
+              onEventClick={handleEventClick}
+              onPrevMonth={handlePrevMonth}
+              onNextMonth={handleNextMonth}
+              canGoPrev={canGoPrev}
+              canGoNext={canGoNext}
+              quickMode={quickMode}
+              onQuickModeChange={setQuickMode}
+            />
+          </main>
+        </div>
+      ) : (
+        <div className="app-body">
+          <main className="main-content">
+            <ClinicSchedule />
+          </main>
+        </div>
+      )}
+      {view === 'calendar' && modalOpen && (
         <EventModal
           selectedDate={selectedDate}
           editingEvent={editingEvent}

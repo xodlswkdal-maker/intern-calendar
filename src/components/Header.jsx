@@ -1,4 +1,4 @@
-function Header() {
+function Header({ view, onViewChange }) {
   return (
     <header className="header">
       <div className="header-left">
@@ -14,15 +14,38 @@ function Header() {
           <span className="header-subtitle">HANYANG UNIV. HOSPITAL · 2026.03 – 2027.02</span>
         </div>
       </div>
-      <div className="header-legend">
-        <span className="legend-item legend-day">☀️ 데이</span>
-        <span className="legend-item legend-duty">🌙 당직</span>
-        <span className="legend-item legend-off">🏖️ 오프</span>
-        <span className="legend-item legend-dispatch">🚗 파견</span>
-        <span className="legend-item legend-todo">☑️ 할일</span>
-        <span className="legend-item legend-etc">📌 기타</span>
-        <span className="legend-item legend-meet">✦ 겹치는날</span>
-      </div>
+
+      <nav className="header-nav">
+        <button
+          className={`header-tab ${view === 'calendar' ? 'is-active' : ''}`}
+          onClick={() => onViewChange('calendar')}
+        >
+          📅 인턴 스케줄
+        </button>
+        <button
+          className={`header-tab ${view === 'clinic' ? 'is-active' : ''}`}
+          onClick={() => onViewChange('clinic')}
+        >
+          🏥 외과 외래표
+        </button>
+      </nav>
+
+      {view === 'calendar' ? (
+        <div className="header-legend">
+          <span className="legend-item legend-day">☀️ 데이</span>
+          <span className="legend-item legend-duty">🌙 당직</span>
+          <span className="legend-item legend-off">🏖️ 오프</span>
+          <span className="legend-item legend-dispatch">🚗 파견</span>
+          <span className="legend-item legend-todo">☑️ 할일</span>
+          <span className="legend-item legend-etc">📌 기타</span>
+          <span className="legend-item legend-meet">✦ 겹치는날</span>
+        </div>
+      ) : (
+        <div className="header-legend">
+          <span className="legend-item legend-day">오전</span>
+          <span className="legend-item legend-duty">오후</span>
+        </div>
+      )}
     </header>
   )
 }
